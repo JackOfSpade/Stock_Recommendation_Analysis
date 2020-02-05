@@ -107,7 +107,6 @@
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="39" parent="6">
@@ -420,7 +419,6 @@ ticker</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="116" parent="7">
@@ -485,7 +483,6 @@ ticker</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="131" parent="8">
@@ -526,12 +523,10 @@ ticker</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="140" parent="9" name="historical_IDX">
       <ColNames>ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="141" parent="9">
       <ColNames>data_date
@@ -551,7 +546,6 @@ ticker</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="145" parent="10">
@@ -592,7 +586,6 @@ analyst
 updown
 recommend
 target</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="153" parent="11">
@@ -641,7 +634,6 @@ target</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>data_date
 ticker</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="163" parent="13">
@@ -754,7 +746,6 @@ ticker</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ticker
 data_date</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="190" parent="14">

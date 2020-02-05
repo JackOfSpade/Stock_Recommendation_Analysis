@@ -41,6 +41,13 @@
         <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="finviz" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="views" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
     </expand>
     <select />
   </component>
@@ -65,9 +72,51 @@
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Stock_Recommendation_Analysis" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="analyst" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Stock_Recommendation_Analysis" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analyst.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Stock_Recommendation_Analysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,6 +142,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.analyst" />
       </list>
     </recent_temporary>
   </component>
@@ -100,11 +150,17 @@
     <option name="viewStates">
       <list>
         <serviceView>
+          <option name="contentProportion" value="0.20124482" />
           <treeState>
             <expand>
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:finviz" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:finviz" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@1785cb3a" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -125,7 +181,11 @@
       <updated>1580694960769</updated>
       <workItem from="1580694967799" duration="3039000" />
       <workItem from="1580707197375" duration="541000" />
-      <workItem from="1580707759047" duration="2428000" />
+      <workItem from="1580707759047" duration="3070000" />
+      <workItem from="1580763834522" duration="223000" />
+      <workItem from="1580771489449" duration="4891000" />
+      <workItem from="1580819127136" duration="23196000" />
+      <workItem from="1580864685138" duration="13144000" />
     </task>
     <servers />
   </component>
@@ -133,30 +193,54 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1094" y="313" key="#SQL_Dialects" timestamp="1580779020049">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state x="1094" y="313" key="#SQL_Dialects/0.0.2000.1293@0.0.2000.1293" timestamp="1580779020049" />
     <state x="593" y="310" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580709612839">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
     <state x="593" y="310" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2000.1293@0.0.2000.1293" timestamp="1580709612839" />
+    <state width="528" height="466" key="DebuggerActiveHint" timestamp="1580876472117">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state width="528" height="466" key="DebuggerActiveHint/0.0.2000.1293@0.0.2000.1293" timestamp="1580876472117" />
     <state x="781" y="381" key="FileChooserDialogImpl" timestamp="1580709590147">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
     <state x="781" y="381" key="FileChooserDialogImpl/0.0.2000.1293@0.0.2000.1293" timestamp="1580709590147" />
-    <state width="955" height="365" key="GridCell.Tab.0.bottom" timestamp="1580708675845">
+    <state width="1957" height="449" key="GridCell.Tab.0.bottom" timestamp="1580877502158">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
-    <state width="955" height="365" key="GridCell.Tab.0.bottom/0.0.2000.1293@0.0.2000.1293" timestamp="1580708675845" />
-    <state width="955" height="365" key="GridCell.Tab.0.center" timestamp="1580708675845">
+    <state width="1957" height="449" key="GridCell.Tab.0.bottom/0.0.2000.1293@0.0.2000.1293" timestamp="1580877502158" />
+    <state width="1957" height="449" key="GridCell.Tab.0.center" timestamp="1580877502158">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
-    <state width="955" height="365" key="GridCell.Tab.0.center/0.0.2000.1293@0.0.2000.1293" timestamp="1580708675845" />
-    <state width="955" height="365" key="GridCell.Tab.0.left" timestamp="1580708675844">
+    <state width="1957" height="449" key="GridCell.Tab.0.center/0.0.2000.1293@0.0.2000.1293" timestamp="1580877502158" />
+    <state width="1957" height="449" key="GridCell.Tab.0.left" timestamp="1580877502158">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
-    <state width="955" height="365" key="GridCell.Tab.0.left/0.0.2000.1293@0.0.2000.1293" timestamp="1580708675844" />
-    <state width="955" height="365" key="GridCell.Tab.0.right" timestamp="1580708675845">
+    <state width="1957" height="449" key="GridCell.Tab.0.left/0.0.2000.1293@0.0.2000.1293" timestamp="1580877502158" />
+    <state width="1957" height="449" key="GridCell.Tab.0.right" timestamp="1580877502158">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
-    <state width="955" height="365" key="GridCell.Tab.0.right/0.0.2000.1293@0.0.2000.1293" timestamp="1580708675845" />
+    <state width="1957" height="449" key="GridCell.Tab.0.right/0.0.2000.1293@0.0.2000.1293" timestamp="1580877502158" />
+    <state width="1957" height="449" key="GridCell.Tab.1.bottom" timestamp="1580877509291">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state width="1957" height="449" key="GridCell.Tab.1.bottom/0.0.2000.1293@0.0.2000.1293" timestamp="1580877509291" />
+    <state width="1957" height="449" key="GridCell.Tab.1.center" timestamp="1580877509291">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state width="1957" height="449" key="GridCell.Tab.1.center/0.0.2000.1293@0.0.2000.1293" timestamp="1580877509291" />
+    <state width="1957" height="449" key="GridCell.Tab.1.left" timestamp="1580877509291">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state width="1957" height="449" key="GridCell.Tab.1.left/0.0.2000.1293@0.0.2000.1293" timestamp="1580877509291" />
+    <state width="1957" height="449" key="GridCell.Tab.1.right" timestamp="1580877509291">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state width="1957" height="449" key="GridCell.Tab.1.right/0.0.2000.1293@0.0.2000.1293" timestamp="1580877509291" />
     <state width="198" height="457" key="HiddenNamespacesPopup" timestamp="1580709338062">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
@@ -165,8 +249,35 @@
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
     <state x="168" y="301" key="SettingsEditor/0.0.2000.1293@0.0.2000.1293" timestamp="1580707875043" />
+    <state x="743" y="297" key="refactoring.ChangeSignatureDialog" timestamp="1580865787710">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state x="743" y="297" key="refactoring.ChangeSignatureDialog/0.0.2000.1293@0.0.2000.1293" timestamp="1580865787710" />
+    <state x="163" y="294" width="672" height="678" key="search.everywhere.popup" timestamp="1580846797447">
+      <screen x="0" y="0" width="2000" height="1293" />
+    </state>
+    <state x="163" y="294" width="672" height="678" key="search.everywhere.popup/0.0.2000.1293@0.0.2000.1293" timestamp="1580846797447" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Stock_Recommendation_Analysis$main.coverage" NAME="main Coverage Results" MODIFIED="1580708675827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Stock_Recommendation_Analysis$analyst.coverage" NAME="analyst Coverage Results" MODIFIED="1580869398056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Stock_Recommendation_Analysis$main.coverage" NAME="main Coverage Results" MODIFIED="1580877502016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
