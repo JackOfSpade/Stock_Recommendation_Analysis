@@ -21,7 +21,7 @@ def find_analyst(name, analyst_object_list):
 
 def graph_top_10(analyst_object_list):
     analyst_object_list.sort(key=get_average_rate_of_return_for_all_periods, reverse=True)
-    analyst_object_list = analyst_object_list[0:11]
+    analyst_object_list = analyst_object_list[0:10]
 
     figure, axes = plt.subplots(nrows=1, ncols=1)
     axes.set_title("Average Rate of Return Over Time")
@@ -44,13 +44,20 @@ def main():
         """
     connection = po.connect(sqlite_connection_string)
 
-
     recommendations_query = """
-                SELECT a.data_date, a.ticker, a.price, b.analyst, b.updown
-                FROM v_fundamentals AS a JOIN recommendations AS b ON (a.ticker = b.ticker AND a.data_date = b.data_date)
-                WHERE updown = 'Upgrade ' OR updown = 'Downgrade'
-                ORDER BY a.data_date ASC;
-                """
+                    SELECT data_date, ticker, analyst, updown
+                    FROM recommendations
+                    WHERE (updown = 'Upgrade ' OR updown = 'Downgrade')
+                    ORDER BY data_date ASC;
+                    """
+
+    #TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    # recommendations_query = """
+    #             SELECT data_date, ticker, analyst, updown
+    #             FROM recommendations
+    #             WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Morgan Stanley')
+    #             ORDER BY data_date ASC;
+    #             """
 
     # Stores analyst obejects, each corresonding to an analyst
     analyst_object_list = []
@@ -58,13 +65,20 @@ def main():
     # Get total # of recommendations for progress report.
     cursor = connection.cursor()
     count_query = """
-                        SELECT COUNT(*) AS COUNT
-                        FROM recommendations;
-                         """
+                            SELECT COUNT(*) AS COUNT
+                            FROM recommendations
+                            WHERE (updown = 'Upgrade ' OR updown = 'Downgrade');
+                            """
+    # TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    # count_query = """
+    #                     SELECT COUNT(*) AS COUNT
+    #                     FROM recommendations
+    #                     WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Morgan Stanley');
+    #                    """
     cursor.execute(count_query)
-    # total_recommendations = cursor.fetchval()
+    total_recommendations = cursor.fetchval()
     # TEST ONLY:
-    total_recommendations = 1000
+    # total_recommendations = 1000
 
     chunksize = 1000
     iteration = 0
@@ -73,7 +87,7 @@ def main():
     for df in pd.read_sql(sql=recommendations_query, con=connection, chunksize=chunksize):
         iteration += 1
 
-        # For each recommendation out of those 1000 recommendations:
+        # For each recommendation out of those chunksize recommendations:
         for (index_label, row_series) in df.iterrows():
             # Find the analyst object if it exists or else create one and return it.
             analyst_object = find_analyst(row_series["analyst"], analyst_object_list)
@@ -82,7 +96,7 @@ def main():
                 previous_existing_day_query = """
                                             SELECT data_date
                                             FROM v_fundamentals 
-                                            WHERE data_date <= ? AND ticker = ?
+                                            WHERE data_date <= ? AND ticker = ? AND price IS NOT NULL
                                             ORDER BY data_date DESC
                                             LIMIT 1;
                                              """
@@ -90,37 +104,38 @@ def main():
                 cursor.execute(previous_existing_day_query, (row_series["data_date"], row_series["ticker"]))
                 previous_existing_day_date = cursor.fetchval()
 
-                stock_query = """
-                    SELECT price
-                    FROM v_fundamentals
-                    WHERE data_date >= ? AND ticker = ?
-                    ORDER BY data_date ASC;
-                    """
+                if previous_existing_day_date is not None:
+                    stock_query = """
+                        SELECT price
+                        FROM v_fundamentals
+                        WHERE data_date >= ? AND ticker = ? AND price IS NOT NULL
+                        ORDER BY data_date ASC;
+                        """
 
-                df_61 = next(
-                    pd.read_sql(sql=stock_query, params=(previous_existing_day_date, row_series["ticker"]), con=connection,
-                                chunksize=61))
-                # Disregard most recent or too old
-                if len(df_61) == 61:
-                    current_price = row_series["price"]
-                    business_day_20_price = df_61.loc[20].copy()["price"]
-                    business_day_40_price = df_61.loc[40].copy()["price"]
-                    business_day_60_price = df_61.loc[60].copy()["price"]
+                    df_61 = next(
+                        pd.read_sql(sql=stock_query, params=(previous_existing_day_date, row_series["ticker"]), con=connection,
+                                    chunksize=61))
+                    # Disregard most recent or too old
+                    if len(df_61) == 61:
+                        current_price = df_61.loc[0].copy()["price"]
+                        business_day_20_price = df_61.loc[20].copy()["price"]
+                        business_day_40_price = df_61.loc[40].copy()["price"]
+                        business_day_60_price = df_61.loc[60].copy()["price"]
 
-                    # Calculate rate of return for each time period
-                    if row_series["updown"] == "Upgrade":
-                        twenty_business_days_rate_of_return = (business_day_20_price - current_price) / current_price
-                        forty_business_days_rate_of_return = (business_day_40_price - current_price) / current_price
-                        sixth_business_days__rate_of_return = (business_day_60_price - current_price) / current_price
-                    elif row_series["updown"] == "Downgrade":
-                        twenty_business_days_rate_of_return = - (business_day_20_price - current_price) / current_price
-                        forty_business_days_rate_of_return = - (business_day_40_price - current_price) / current_price
-                        sixth_business_days__rate_of_return = - (business_day_60_price - current_price) / current_price
+                        # Calculate rate of return for each time period
+                        if row_series["updown"] == "Upgrade":
+                            twenty_business_days_rate_of_return = (business_day_20_price - current_price) / current_price
+                            forty_business_days_rate_of_return = (business_day_40_price - current_price) / current_price
+                            sixth_business_days__rate_of_return = (business_day_60_price - current_price) / current_price
+                        elif row_series["updown"] == "Downgrade":
+                            twenty_business_days_rate_of_return = - (business_day_20_price - current_price) / current_price
+                            forty_business_days_rate_of_return = - (business_day_40_price - current_price) / current_price
+                            sixth_business_days__rate_of_return = - (business_day_60_price - current_price) / current_price
 
-                    # Add average rate of return to this analyst's object
-                    analyst_object.add_gross_profits_as_averaged_profits((twenty_business_days_rate_of_return,
-                                                                          forty_business_days_rate_of_return,
-                                                                          sixth_business_days__rate_of_return))
+                        # Add average rate of return to this analyst's object
+                        analyst_object.add_gross_profits_as_averaged_profits((twenty_business_days_rate_of_return,
+                                                                              forty_business_days_rate_of_return,
+                                                                              sixth_business_days__rate_of_return))
 
         # Get progress report
         percent_complete = np.round(iteration * chunksize / total_recommendations * 100, decimals=2)
@@ -129,8 +144,8 @@ def main():
         print(str(percent_complete) + "%")
 
         # Test
-        if iteration == 1:
-            break
+        # if iteration == 1:
+        #     break
 
     for x in analyst_object_list:
         x.calculate_average_rate_of_return_for_all_periods()
