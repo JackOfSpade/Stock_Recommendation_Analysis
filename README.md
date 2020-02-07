@@ -9,3 +9,6 @@
 
 
 ![](https://i.imgur.com/31EvinK.png)
+
+# Database Structure
+![](https://i.imgur.com/3dF2SjZ.png)
