@@ -12,6 +12,7 @@
 
 # Database Structure
 ![](https://i.imgur.com/3dF2SjZ.png)
+
 Data sources:
-Markup : * finviz.com
-Markup : * zacks.com
+* finviz.com  
+* zacks.com
