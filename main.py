@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 # Find the analyst object if it exists or else create one and return it.
 def find_analyst(name, analyst_object_list):
+    # Do not create analyst object if it exists already.
     for x in analyst_object_list:
         if isinstance(x, analyst.analyst) and x.name == name:
             return x
@@ -19,6 +20,7 @@ def find_analyst(name, analyst_object_list):
     else:
         return None
 
+# Plot horizontal bar graphs
 def plot_barh(figure, axes, analyst_object_list, number_of_months):
     axes.clear()
     if number_of_months == 1:
@@ -51,7 +53,8 @@ def plot_barh(figure, axes, analyst_object_list, number_of_months):
     axes.set_xlabel("Average Rate of Return")
     figure.savefig(fname="barh_graph"+ str(number_of_months) +".png",  bbox_inches="tight")
 
-def graph_top_10(analyst_object_list):
+# Graph top 9 analysts according to average rate of return for all periods
+def graph_top_9(analyst_object_list):
     analyst_object_list.sort(key=get_average_rate_of_return_for_all_periods, reverse=True)
     analyst_object_list = analyst_object_list[0:10]
 
@@ -68,7 +71,6 @@ def graph_top_10(analyst_object_list):
     plot_barh(figure, axes, analyst_object_list, 1)
     plot_barh(figure, axes, analyst_object_list, 2)
     plot_barh(figure, axes, analyst_object_list, 3)
-
 
 def get_average_rate_of_return_for_all_periods(analyst_object):
     return analyst_object.average_rate_of_return_for_all_periods
@@ -88,7 +90,7 @@ def main():
                     ORDER BY data_date ASC;
                     """
 
-    #TEST
+    # Small Sample Test
     # recommendations_query = """
     #                 SELECT data_date, ticker, analyst, updown
     #                 FROM recommendations
@@ -96,7 +98,7 @@ def main():
     #                 ORDER BY data_date ASC;
     #                 """
 
-    # Stores analyst obejects, each corresonding to an analyst
+    # Stores analyst obejects, each corresponding to an analyst
     analyst_object_list = []
 
     # Get total # of recommendations for progress report.
@@ -107,7 +109,7 @@ def main():
                             WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18';
                             """
 
-    # TEST
+    # Small Sample Test
     # count_query = """
     #                         SELECT COUNT(*) AS COUNT
     #                         FROM recommendations
@@ -116,8 +118,6 @@ def main():
 
     cursor.execute(count_query)
     total_recommendations = cursor.fetchval()
-    # TEST ONLY:
-    # total_recommendations = 1000
 
     chunksize = 1000
     iteration = 0
@@ -131,6 +131,7 @@ def main():
             # Find the analyst object if it exists or else create one and return it.
             analyst_object = find_analyst(row_series["analyst"], analyst_object_list)
 
+            # A return of None means this analyst has less than 10 recommendations. Discard.
             if analyst_object is not None:
                 previous_existing_day_query = """
                                             SELECT data_date
@@ -143,6 +144,7 @@ def main():
                 cursor.execute(previous_existing_day_query, (row_series["data_date"], row_series["ticker"]))
                 previous_existing_day_date = cursor.fetchval()
 
+                # Use previous business day's price if analyst post recommendation on a non-business day.
                 if previous_existing_day_date is not None:
                     stock_query = """
                         SELECT price
@@ -154,7 +156,8 @@ def main():
                     df_61 = next(
                         pd.read_sql(sql=stock_query, params=(previous_existing_day_date, row_series["ticker"]), con=connection,
                                     chunksize=61))
-                    # Disregard most recent or too old
+
+                    # Discard if recommendation is too recent or too old
                     if len(df_61) == 61:
                         current_price = df_61.loc[0].copy()["price"]
                         business_day_20_price = df_61.loc[20].copy()["price"]
@@ -176,26 +179,28 @@ def main():
                                                                               forty_business_days_rate_of_return,
                                                                               sixth_business_days__rate_of_return))
 
-        # Get progress report
+        # Get progress report in console
         percent_complete = np.round(iteration * chunksize / total_recommendations * 100, decimals=2)
         if percent_complete > 100:
             percent_complete = 100
         print(str(percent_complete) + "%")
 
-        # Test
+        # Small Sample Test
         # if iteration == 1:
         #     break
 
     for x in analyst_object_list:
         x.calculate_average_rate_of_return_for_all_periods()
 
-    graph_top_10(analyst_object_list)
+    graph_top_9(analyst_object_list)
 
 # Only run code below if it's not being used as a module.
 if __name__ == "__main__":
     main()
-#     import timeit
-#     print(timeit.timeit(stmt="main()", setup="from __main__ import main", number=2)/2)
+
+    # Performance Tests
+    # import timeit
+    # print(timeit.timeit(stmt="main()", setup="from __main__ import main", number=2)/2)
 
     # import cProfile
     # import pstats
