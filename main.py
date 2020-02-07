@@ -19,19 +19,56 @@ def find_analyst(name, analyst_object_list):
     else:
         return None
 
+def plot_barh(figure, axes, analyst_object_list, number_of_months):
+    axes.clear()
+    if number_of_months == 1:
+        axes.set_title("Top Average RoR in 1 Month")
+    else:
+        axes.set_title("Top Average RoR in " + str(number_of_months) + " Months")
+
+    if number_of_months == 1:
+        analyst_object_list.sort(key=lambda x: x.twenty_business_days_average_rate_of_return, reverse=True)
+    elif number_of_months == 2:
+        analyst_object_list.sort(key=lambda x: x.forty_business_days_average_rate_of_return, reverse=True)
+    else:
+        analyst_object_list.sort(key=lambda x: x.sixty_business_days_average_rate_of_return, reverse=True)
+
+    average_rate_of_return = []
+    names = []
+    for x in analyst_object_list:
+        names.append(x.name)
+        if number_of_months == 1:
+            average_rate_of_return.append(x.twenty_business_days_average_rate_of_return)
+        elif number_of_months == 2:
+            average_rate_of_return.append(x.forty_business_days_average_rate_of_return)
+        else:
+            average_rate_of_return.append(x.sixty_business_days_average_rate_of_return)
+
+
+    axes.barh(y=np.arange(start=len(analyst_object_list), stop=0, step=-1), width=average_rate_of_return)
+    axes.set_yticks(np.arange(start=len(analyst_object_list), stop=0, step=-1))
+    axes.set_yticklabels(names)
+    axes.set_xlabel("Average Rate of Return")
+    figure.savefig(fname="barh_graph"+ str(number_of_months) +".png",  bbox_inches="tight")
+
 def graph_top_10(analyst_object_list):
     analyst_object_list.sort(key=get_average_rate_of_return_for_all_periods, reverse=True)
     analyst_object_list = analyst_object_list[0:10]
 
     figure, axes = plt.subplots(nrows=1, ncols=1)
-    axes.set_title("Average Rate of Return Over Time")
+    axes.set_title("Top Average RoR Over Time")
     for x in analyst_object_list:
-        axes.plot([20, 40, 60], [x.twenty_business_days_average_rate_of_return, x.forty_business_days_average_rate_of_return, x.sixty_business_days_average_rate_of_return], marker=".", linestyle="-", label=x.name)
+        axes.plot([1, 2, 3], [x.twenty_business_days_average_rate_of_return, x.forty_business_days_average_rate_of_return, x.sixty_business_days_average_rate_of_return], marker=".", linestyle="-", label=x.name)
 
     axes.set_ylabel("Average Rate of Return")
-    axes.set_xlabel("Number of Weeks")
+    axes.set_xlabel("Number of Months")
     legend = axes.legend(bbox_to_anchor=(1.1, 1))
-    figure.savefig(fname="graph.png", bbox_extra_artists=(legend,), bbox_inches="tight")
+    figure.savefig(fname="scatter_plot.png", bbox_extra_artists=(legend,), bbox_inches="tight")
+
+    plot_barh(figure, axes, analyst_object_list, 1)
+    plot_barh(figure, axes, analyst_object_list, 2)
+    plot_barh(figure, axes, analyst_object_list, 3)
+
 
 def get_average_rate_of_return_for_all_periods(analyst_object):
     return analyst_object.average_rate_of_return_for_all_periods
@@ -47,17 +84,17 @@ def main():
     recommendations_query = """
                     SELECT data_date, ticker, analyst, updown
                     FROM recommendations
-                    WHERE (updown = 'Upgrade ' OR updown = 'Downgrade')
+                    WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18'
                     ORDER BY data_date ASC;
                     """
 
-    #TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    #TEST
     # recommendations_query = """
-    #             SELECT data_date, ticker, analyst, updown
-    #             FROM recommendations
-    #             WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Morgan Stanley')
-    #             ORDER BY data_date ASC;
-    #             """
+    #                 SELECT data_date, ticker, analyst, updown
+    #                 FROM recommendations
+    #                 WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Wells Fargo')
+    #                 ORDER BY data_date ASC;
+    #                 """
 
     # Stores analyst obejects, each corresonding to an analyst
     analyst_object_list = []
@@ -67,14 +104,16 @@ def main():
     count_query = """
                             SELECT COUNT(*) AS COUNT
                             FROM recommendations
-                            WHERE (updown = 'Upgrade ' OR updown = 'Downgrade');
+                            WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18';
                             """
-    # TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+
+    # TEST
     # count_query = """
-    #                     SELECT COUNT(*) AS COUNT
-    #                     FROM recommendations
-    #                     WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Morgan Stanley');
-    #                    """
+    #                         SELECT COUNT(*) AS COUNT
+    #                         FROM recommendations
+    #                         WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Wells Fargo');
+    #                         """
+
     cursor.execute(count_query)
     total_recommendations = cursor.fetchval()
     # TEST ONLY:
