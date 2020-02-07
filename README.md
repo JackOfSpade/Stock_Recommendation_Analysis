@@ -1,3 +1,7 @@
+# Data Sources
+* finviz.com  
+* zacks.com
+
 # Results for Data from 1/1/2017 to 1/31/2020
 ![](https://i.imgur.com/e1g9otQ.png)
 
@@ -13,6 +17,4 @@
 # Database Structure
 ![](https://i.imgur.com/3dF2SjZ.png)
 
-Data sources:
-* finviz.com  
-* zacks.com
+
