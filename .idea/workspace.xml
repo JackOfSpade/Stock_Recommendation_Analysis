@@ -72,6 +72,7 @@
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -163,17 +164,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:finviz" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@1dfc254d" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:finviz" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@4eed754f" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:finviz" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@14bffc05" type="9fbbdea:ServiceModel$ServiceNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@297833f3" type="9fbbdea:ServiceModel$ServiceNode" />
               </path>
             </expand>
             <select />
@@ -207,6 +198,8 @@
       <workItem from="1581011940067" duration="9505000" />
       <workItem from="1581049962245" duration="700000" />
       <workItem from="1581118360208" duration="1254000" />
+      <workItem from="1581180632526" duration="15000" />
+      <workItem from="1581204618726" duration="216000" />
     </task>
     <servers />
   </component>
@@ -230,10 +223,10 @@
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
     <state width="528" height="466" key="DebuggerActiveHint/0.0.2000.1293@0.0.2000.1293" timestamp="1580876472117" />
-    <state x="781" y="381" key="FileChooserDialogImpl" timestamp="1580709590147">
+    <state x="781" y="381" key="FileChooserDialogImpl" timestamp="1581180644978">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
-    <state x="781" y="381" key="FileChooserDialogImpl/0.0.2000.1293@0.0.2000.1293" timestamp="1580709590147" />
+    <state x="781" y="381" key="FileChooserDialogImpl/0.0.2000.1293@0.0.2000.1293" timestamp="1581180644978" />
     <state width="1957" height="432" key="GridCell.Tab.0.bottom" timestamp="1581037910472">
       <screen x="0" y="0" width="2000" height="1293" />
     </state>
