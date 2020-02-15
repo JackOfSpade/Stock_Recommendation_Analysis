@@ -17,7 +17,7 @@ class analyst():
         count_query = """
                     SELECT COUNT(*) AS COUNT
                     FROM recommendations
-                    WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND analyst = ?;
+                    WHERE (updown = 'Upgrade' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND analyst = ?;
                     """
         cursor.execute(count_query, (self.name,))
 

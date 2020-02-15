@@ -86,7 +86,7 @@ def main():
     recommendations_query = """
                     SELECT data_date, ticker, analyst, updown
                     FROM recommendations
-                    WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18'
+                    WHERE (updown = 'Upgrade' OR updown = 'Downgrade') AND data_date >= '2018-07-18'
                     ORDER BY data_date ASC;
                     """
 
@@ -94,7 +94,7 @@ def main():
     # recommendations_query = """
     #                 SELECT data_date, ticker, analyst, updown
     #                 FROM recommendations
-    #                 WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Wells Fargo')
+    #                 WHERE (updown = 'Upgrade' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND analyst = 'Cantor Fitzgerald'
     #                 ORDER BY data_date ASC;
     #                 """
 
@@ -106,20 +106,20 @@ def main():
     count_query = """
                             SELECT COUNT(*) AS COUNT
                             FROM recommendations
-                            WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18';
+                            WHERE (updown = 'Upgrade' OR updown = 'Downgrade') AND data_date >= '2018-07-18';
                             """
 
     # Small Sample Test
     # count_query = """
     #                         SELECT COUNT(*) AS COUNT
     #                         FROM recommendations
-    #                         WHERE (updown = 'Upgrade ' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND (analyst = 'Goldman' OR analyst = 'Barclays' OR analyst = 'Wells Fargo');
+    #                         WHERE (updown = 'Upgrade' OR updown = 'Downgrade') AND data_date >= '2018-07-18' AND analyst = 'Cantor Fitzgerald';
     #                         """
 
     cursor.execute(count_query)
     total_recommendations = cursor.fetchval()
 
-    chunksize = 1000
+    chunksize = 500
     iteration = 0
 
     # For each chunksize recommendations:
@@ -178,6 +178,9 @@ def main():
                         analyst_object.add_gross_profits_as_averaged_profits((twenty_business_days_rate_of_return,
                                                                               forty_business_days_rate_of_return,
                                                                               sixth_business_days__rate_of_return))
+
+                        # Test
+                        # print(str(previous_existing_day_date) + ", " + str(row_series["ticker"]) + ", " +  str(current_price) + ", " + str(business_day_20_price) + ", " + str(business_day_40_price) + ", " + str(business_day_60_price))
 
         # Get progress report in console
         percent_complete = np.round(iteration * chunksize / total_recommendations * 100, decimals=2)
